@@ -183,10 +183,11 @@
             border-left: 1px solid rgba(189, 189, 189, 0.305);
             border-bottom: 1px solid rgba(189, 189, 189, 0.305);
             border-right: 1px solid rgba(189, 189, 189, 0.305);
-            transition: 0.5s;
+            transition: 1s;
             opacity: 0;
             width: 150px;
             padding: 20px 0 20px 10px;
+            z-index: 100;
 
             .hover_design {
               color: black;
@@ -202,6 +203,8 @@
             .display_sub_routes_section {
               opacity: 1;
               transform: translateY(-20px);
+              
+              background-color: white;
 
               .hover_design:hover:nth-child(1n + 0) {
                 margin-left: 5px;
