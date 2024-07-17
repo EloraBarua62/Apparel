@@ -14,17 +14,12 @@ const Banner = () => {
       fade: true,
       arrows: false,
       infinite: true,
-      speed: 800,
+      speed: 500,
       autoplay: true,
-      autoplaySpeed: 2000,
+      autoplaySpeed: 3000,
       slidesToShow: 1,
       slidesToScroll: 1,
       waitForAnimate: false,
-      afterChange: function (index) {
-        console.log(
-          `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-        );
-      },
     };
     return (
       <div className={`${styles.banner_section} slider-container`}>
