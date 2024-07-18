@@ -38,7 +38,8 @@ const Collection = () => {
     ];
     return (
       <div className={styles.collection_section}>
-        <DesignContainer>
+        <DesignContainer heading={"Collection"}>
+          
           <div className={styles.collage_design}>
             {/* Men & women collection */}
             <div className={styles.kid_teen_segment}>

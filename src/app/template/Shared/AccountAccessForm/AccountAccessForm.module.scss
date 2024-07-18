@@ -1,0 +1,72 @@
+.accessform_page_design {
+  width: 280px;
+  height: 100%;
+
+  @media (min-width: 768px) {
+    width: 300px;
+  }
+  @media (min-width: 1024px) {
+    width: 400px;
+  }
+
+  form {
+    width: 100%;
+    padding: 40px 0;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+      rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+      rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    @media (min-width: 768px) {
+     padding: 60px 0;
+    }
+    @media (min-width: 1024px) {
+      gap: 20px;
+    }
+
+    div {
+      width: 200px;
+      @media (min-width: 768px) {
+        width: 250px;
+        font-size: 16px;
+      }
+      @media (min-width: 1024px) {
+        width: 350px;
+        font-size: 16px;
+      }
+      label {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 5px;
+        color: black;
+
+        @media (min-width: 1024px) {
+          font-size: 14px;
+          margin-bottom: 10px;
+        }
+      }
+
+      input {
+        width: 190px;
+        padding: 5px;
+        border: 1px solid rgba(0, 0, 0, 0.331);
+        font-size: 14px;
+        text-decoration: none;
+        ::placeholder {
+          color: rgba(0, 0, 0, 0.508);
+        }
+        @media (min-width: 768px) {
+          width: 248px;
+          padding: 10px 0 10px;
+        }
+        @media (min-width: 1024px) {
+          width: 348px;
+          padding: 10px 0 10px;
+        }
+      }
+    }
+  }
+}
