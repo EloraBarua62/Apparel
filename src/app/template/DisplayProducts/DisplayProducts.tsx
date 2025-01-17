@@ -50,21 +50,9 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
 
   const settings = {
     dots: true,
-    // infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    // className: "center",
-    // infinite: false,
-    // centerPadding: "60px",
-    // slidesToShow: 5,
-    // swipeToSlide: true,
-    // dot: true,
-    // afterChange: function (index) {
-    //   console.log(
-    //     `Slider Changed to: ${index + 1}, background: #222; color: #bada55`
-    //   );
-    // },
   };
 
   return (
@@ -628,7 +616,7 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
             index
           ) => (
             <div key={index} className={styles.card_design}>
-              <div className="slider-container">
+              <div className={`${styles.overlay_container} slider-container`}>
                 <Slider
                   {...settings}
                   customPaging={(i: number) => (
@@ -655,6 +643,7 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                     </div>
                   ))}
                 </Slider>
+                <div className={styles.overlay_design}></div>
               </div>
 
               <div className={styles.product_details_container}>
