@@ -1,0 +1,61 @@
+.admin_dashboard_container{
+    background-color: var(--theme1);
+    padding: 40px 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 20px;
+    position: relative;
+    transition: 0.5s;
+
+    .arrow_design{
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 10px;
+        right: -10px;
+        background-color: black;
+        border: 0;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        z-index: 5;
+    }  
+    
+    .route_container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+
+    }
+}
+
+.open_dashboard{
+    width: 200px;
+
+    .route_design{
+        width: 100%;
+        opacity: 1;
+        transition: 1s;
+
+        .text_styling{
+            color: white;
+            text-decoration: none;
+            transition: 0.5s;
+
+            &:hover{
+                margin-left:10px;
+            }
+        }
+    }
+}
+.close_dashboard{
+    width: 30px;
+
+    .route_design{
+        opacity: 0;
+    }
+}

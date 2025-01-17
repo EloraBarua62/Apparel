@@ -1,0 +1,17 @@
+.admin_header_container{
+    width: 100%;
+
+    // Product logo design container
+    .logo_container {
+      width: 100px;
+      height: 50px;
+      overflow: hidden;
+
+      // Internal image setup
+      .logo_design {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+}

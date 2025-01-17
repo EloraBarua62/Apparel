@@ -4,5 +4,11 @@
     body{
         margin: 0;
         --theme1: #ff1861;
+
+        .dashboard_template_design{
+            width: 100%;
+            height: calc(100vh - 50px);
+            display: flex;
+        }
     }
 }

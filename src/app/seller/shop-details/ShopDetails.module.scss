@@ -1,0 +1,185 @@
+.shop_details_page_setup {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+
+  .banner_section {
+    width: 100%;
+    position: relative;
+    // margin-bottom: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    @media (min-width: 1200px) {
+      margin-bottom: 150px;
+    }
+
+    @media (min-width: 1400px) {
+      margin-bottom: 200px;
+    }
+
+    .background_image_container {
+      width: 100%;
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+
+      .background_image_design {
+        object-fit: cover;
+      }
+    }
+
+    .short_intro_container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid rgba(247, 247, 247, 0.797);
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      position: absolute;
+      top: 150px;
+      background-color: white;
+
+      @media (min-width: 576px) {
+        width: 540px;
+      }
+      @media (min-width: 768px) {
+        width: 720px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+      @media (min-width: 992px) {
+        width: 960px;
+      }
+      @media (min-width: 1200px) {
+        width: 1140px;
+      }
+      @media (min-width: 1400px) {
+        width: 1320px;
+      }
+
+      .left_section {
+        width: 250px;
+        padding: 30px 0 30px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        
+        .logo_container {
+          width: 80px;
+          height: 80px;
+          position: relative;
+          overflow: hidden;
+          border: 3px solid var(--theme1);
+          border-radius: 50%;
+          margin-bottom: 20px;
+
+          .logo_design {
+            object-fit: cover;
+          }
+        }
+        
+        .shop_name_design {
+          font-size: 18px;
+          font-weight: 600;
+          margin-bottom: 20px;
+          color: var(--theme1);
+        }
+        .selling_status {
+          color: gray;
+        }
+      }
+
+      .middle_section {       
+        padding: 20px;
+        margin: auto 0;
+        font-weight: 300;
+        border-left: 1px solid rgba(183, 182, 182, 0.374);
+        border-right: 1px solid rgba(183, 182, 182, 0.374);
+        text-align: justify;
+
+        @media (min-width: 768px) {
+          width: 100%;
+        }
+      }
+
+      .right_section {
+        width: 230px;
+        padding: 30px 20px 30px 0;
+
+        .title {
+          font-weight: 600;
+          text-align: center;
+        }
+        .social_media_link {
+          display: flex;
+          justify-content: center;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 20px;
+          margin-top: 10px;
+          margin-bottom: 40px;
+
+          .contact_icon_design {
+            color: var(--theme1);
+          }
+        }
+
+        .phone_design {
+          color: var(--theme1);
+        }
+      }
+    }
+  }
+
+  .state_navigation{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+
+    .each_state{
+      width: 50%;
+      display: flex;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .active_class{
+      width: 50%;
+      position: absolute;
+      top: 30px;
+      border-top: 2px solid var(--theme1);
+      transition: 0.3s;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+
+      .icon_design{
+        position: absolute;
+        top: -15px;
+        width: 40px;
+        height: 40px;
+        padding: 0;
+        color: var(--theme1);
+      }
+    }
+
+    .active_class1{
+      // animation: smoothright 0.5;
+      left: 0;
+    }
+    .active_class2{
+      left: 50%;
+    }
+  }
+}
