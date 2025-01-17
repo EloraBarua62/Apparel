@@ -1,5 +1,7 @@
 import styles from "./DisplayProducts.module.scss";
-import { IoIosArrowDown, IoIosSearch } from "react-icons/io";
+import { IoIosArrowDown, IoIosSearch, IoMdHeartEmpty } from "react-icons/io";
+import { HiOutlineShoppingBag } from "react-icons/hi2";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { sizes, rating, color } from "../../utils/demoData";
 import Image from "next/image";
 import { Key, useEffect, useState } from "react";
@@ -8,6 +10,7 @@ import { allProduct } from "../../../lib/slices/productSlice";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
+import { GoArrowSwitch } from "react-icons/go";
 
 const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
   const [toogleCriteria, setToogleCriteria] = useState(1);
@@ -17,8 +20,9 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState([]);
   const [querySearch, setQuerySearch] = useState("");
-  const [productColor, setProductColor] = useState(0);
+  const [productIdentity, setProductIdentity] = useState<{ id?: number; color?: string }>({});
   const [productNumber, setProductNumber] = useState(0);
+
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useAppDispatch();
   const handleToogleCriteria = (criteria_no: number) => {
@@ -54,6 +58,30 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
+  const handleCartItem = (id: number) => {
+      if(Object.keys(productIdentity).length === 0 || id != productIdentity.id){
+        for(let item of productInfo){
+          if(item.product_id === id){
+            setProductIdentity({id: id, color: item.color[0]});
+          }
+        }
+      }
+  
+      console.log(productIdentity)
+      const serializedState = JSON.stringify(productIdentity);
+      const existingState = localStorage.getItem("cartState");
+      if (existingState) {
+        const parsedState = JSON.parse(existingState);
+        const updatedState = {...parsedState, productIdentity};
+        localStorage.setItem("cartState", JSON.stringify(updatedState));
+      }
+      localStorage.setItem("cartState", serializedState);
+    }
+  
+    useEffect(() => {
+      console.log(productIdentity);
+    }, [productIdentity]);
 
   return (
     <div className={styles.display_products_container}>
@@ -622,6 +650,12 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                   customPaging={(i: number) => (
                     <div className={styles.active_button}>
                       <div
+                        onClick={() =>
+                          setProductIdentity({
+                            id: each.product_id,
+                            color: each.color[i],
+                          })
+                        }
                         style={{
                           width: "10px",
                           height: "10px",
@@ -632,7 +666,10 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                     </div>
                   )}
                 >
-                  {(each.product_image.length === 1 ? [...each.product_image, ...each.product_image] : each.product_image).map((image, idx) => (
+                  {(each.product_image.length === 1
+                    ? [...each.product_image, ...each.product_image]
+                    : each.product_image
+                  ).map((image, idx) => (
                     <div key={idx} className={styles.image_container}>
                       <Image
                         src={image}
@@ -643,7 +680,34 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                     </div>
                   ))}
                 </Slider>
-                <div className={styles.overlay_design}></div>
+                <div className={styles.overlay_design}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-end",
+                      gap: "10px",
+                      padding: "10px",
+                    }}
+                  >
+                    <div className={styles.icon_design}>
+                      <MdOutlineRemoveRedEye style={{ fontSize: "20px" }} />
+                    </div>
+                    <div className={styles.icon_design}>
+                      <IoMdHeartEmpty style={{ fontSize: "20px" }} />
+                    </div>
+                    <div className={styles.icon_design}>
+                      <GoArrowSwitch style={{ fontSize: "20px" }} />
+                    </div>
+                  </div>
+                  <div
+                    className={styles.button_design}
+                    onClick={() => handleCartItem(each.product_id)}
+                  >
+                    <HiOutlineShoppingBag />
+                    Add to Cart
+                  </div>
+                </div>
               </div>
 
               <div className={styles.product_details_container}>
