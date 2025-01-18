@@ -22,6 +22,7 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
   const [querySearch, setQuerySearch] = useState("");
   const [productIdentity, setProductIdentity] = useState<{
     id?: number;
+    name?: string;
     color?: string;
     image?: string;
   }>({});
@@ -76,6 +77,7 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
         if (item.product_id === id) {
           setProductIdentity({
             id: id,
+            name: item.product_name,
             color: item.color[0],
             image: item.product_image[0],
           });
@@ -671,6 +673,7 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                         onClick={() => {
                           setProductIdentity({
                             id: each.product_id,
+                            name: each.product_name,
                             color: each.color[i],
                             image: each.product_image[i],
                           });
