@@ -20,7 +20,10 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
   const [selectedRating, setSelectedRating] = useState([]);
   const [selectedBrand, setSelectedBrand] = useState([]);
   const [querySearch, setQuerySearch] = useState("");
-  const [productIdentity, setProductIdentity] = useState<{ id?: number; color?: string }>({});
+  const [productIdentity, setProductIdentity] = useState<{
+    id?: number;
+    color?: string;
+  }>({});
   const [productNumber, setProductNumber] = useState(0);
 
   const [openModal, setOpenModal] = useState(false);
@@ -60,28 +63,29 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
   };
 
   const handleCartItem = (id: number) => {
-      if(Object.keys(productIdentity).length === 0 || id != productIdentity.id){
-        for(let item of productInfo){
-          if(item.product_id === id){
-            setProductIdentity({id: id, color: item.color[0]});
-          }
+    if (Object.keys(productIdentity).length === 0 || id != productIdentity.id) {
+      console.log(id);
+      for (let item of productInfo) {
+        if (item.product_id === id) {
+          setProductIdentity({ id: id, color: item.color[0] });
         }
       }
-  
-      console.log(productIdentity)
-      const serializedState = JSON.stringify(productIdentity);
-      const existingState = localStorage.getItem("cartState");
-      if (existingState) {
-        const parsedState = JSON.parse(existingState);
-        const updatedState = {...parsedState, productIdentity};
-        localStorage.setItem("cartState", JSON.stringify(updatedState));
-      }
-      localStorage.setItem("cartState", serializedState);
     }
-  
-    useEffect(() => {
+  };
+
+  useEffect(() => {
+    console.log(productIdentity);
+    const existingState = localStorage.getItem("cartState");
+    if (existingState) {
+      const parsedState = JSON.parse(existingState);
       console.log(productIdentity);
-    }, [productIdentity]);
+      const updatedState = [...parsedState, productIdentity];
+      console.log(updatedState, productIdentity);
+      localStorage.setItem("cartState", JSON.stringify(updatedState));
+    } else {
+      localStorage.setItem("cartState", JSON.stringify([productIdentity]));
+    }
+  }, [productIdentity]);
 
   return (
     <div className={styles.display_products_container}>
