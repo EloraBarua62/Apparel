@@ -23,7 +23,9 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
   const [productIdentity, setProductIdentity] = useState<{
     id?: number;
     color?: string;
+    image?: string;
   }>({});
+  const [cartItem, setCartItem] = useState(false);
   const [productNumber, setProductNumber] = useState(0);
 
   const [openModal, setOpenModal] = useState(false);
@@ -63,11 +65,20 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
   };
 
   const handleCartItem = (id: number) => {
-    if (Object.keys(productIdentity).length === 0 || id != productIdentity.id) {
-      console.log(id);
+    console.log(id, productIdentity);
+    setCartItem(true);
+    if (
+      (id === productIdentity.id && productIdentity.color === undefined) ||
+      Object.keys(productIdentity).length === 0 ||
+      id !== productIdentity.id
+    ) {
       for (let item of productInfo) {
         if (item.product_id === id) {
-          setProductIdentity({ id: id, color: item.color[0] });
+          setProductIdentity({
+            id: id,
+            color: item.color[0],
+            image: item.product_image[0],
+          });
         }
       }
     }
@@ -75,17 +86,20 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
 
   useEffect(() => {
     console.log(productIdentity);
-    const existingState = localStorage.getItem("cartState");
-    if (existingState) {
-      const parsedState = JSON.parse(existingState);
-      console.log(productIdentity);
-      const updatedState = [...parsedState, productIdentity];
-      console.log(updatedState, productIdentity);
-      localStorage.setItem("cartState", JSON.stringify(updatedState));
-    } else {
-      localStorage.setItem("cartState", JSON.stringify([productIdentity]));
+    if (cartItem) {
+      const existingState = localStorage.getItem("cartState");
+      if (existingState) {
+        const parsedState = JSON.parse(existingState);
+        console.log(productIdentity);
+        const updatedState = [...parsedState, productIdentity];
+        console.log(updatedState, productIdentity);
+        localStorage.setItem("cartState", JSON.stringify(updatedState));
+      } else {
+        localStorage.setItem("cartState", JSON.stringify([productIdentity]));
+      }
+      setCartItem(false);
     }
-  }, [productIdentity]);
+  }, [cartItem, productIdentity]);
 
   return (
     <div className={styles.display_products_container}>
@@ -654,12 +668,14 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                   customPaging={(i: number) => (
                     <div className={styles.active_button}>
                       <div
-                        onClick={() =>
+                        onClick={() => {
                           setProductIdentity({
                             id: each.product_id,
                             color: each.color[i],
-                          })
-                        }
+                            image: each.product_image[i],
+                          });
+                          setCartItem(false);
+                        }}
                         style={{
                           width: "10px",
                           height: "10px",
@@ -706,7 +722,9 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                   </div>
                   <div
                     className={styles.button_design}
-                    onClick={() => handleCartItem(each.product_id)}
+                    onClick={() => {
+                      handleCartItem(each.product_id);
+                    }}
                   >
                     <HiOutlineShoppingBag />
                     Add to Cart
