@@ -5,10 +5,12 @@ import { Metadata } from "next";
 import Providers from "./template/Providers/Providers";
 import { Toaster } from "react-hot-toast";
 
-const poppins = Poppins({ 
-  weight: '400', 
+const poppins = Poppins({
+  weight: '400',
   style: 'normal',
-  subsets: ["latin"] });
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
   title: "Apparel",

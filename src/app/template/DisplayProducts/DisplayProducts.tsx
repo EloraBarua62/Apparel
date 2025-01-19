@@ -26,7 +26,14 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
     color?: string;
     image?: string;
   }>({});
+  const [wishlistIdentity, setWishlistIdentity] = useState<{
+    id?: number;
+    name?: string;
+    color?: string;
+    image?: string;
+  }>({});
   const [cartItem, setCartItem] = useState(false);
+  const [wishlistItem, setWishlistItem] = useState(false);
   const [productNumber, setProductNumber] = useState(0);
 
   const [openModal, setOpenModal] = useState(false);
@@ -86,6 +93,27 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
     }
   };
 
+  const handleLikeItem = (id: number) => {
+    console.log(id, productIdentity);
+    setCartItem(true);
+    if (
+      (id === productIdentity.id && productIdentity.color === undefined) ||
+      Object.keys(productIdentity).length === 0 ||
+      id !== productIdentity.id
+    ) {
+      for (let item of productInfo) {
+        if (item.product_id === id) {
+          setProductIdentity({
+            id: id,
+            name: item.product_name,
+            color: item.color[0],
+            image: item.product_image[0],
+          });
+        }
+      }
+    }
+  };
+
   useEffect(() => {
     console.log(productIdentity);
     if (cartItem) {
@@ -102,6 +130,24 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
       setCartItem(false);
     }
   }, [cartItem, productIdentity]);
+
+
+  useEffect(() => {
+    console.log(wishlistIdentity);
+    if (wishlistItem) {
+      const existingState = localStorage.getItem("wishlistState");
+      if (existingState) {
+        const parsedState = JSON.parse(existingState);
+
+        const updatedState = [...parsedState, wishlistIdentity];
+        console.log(updatedState, wishlistIdentity);
+        localStorage.setItem("wishlistState", JSON.stringify(updatedState));
+      } else {
+        localStorage.setItem("wishlistState", JSON.stringify([wishlistIdentity]));
+      }
+      setWishlistItem(false);
+    }
+  }, [wishlistItem, wishlistIdentity]);
 
   return (
     <div className={styles.display_products_container}>
@@ -738,25 +784,6 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
               <div className={styles.product_details_container}>
                 <div>{each.product_name}</div>
                 <div>{each.unit_price}</div>
-                {/* <div className={styles.color_section}>
-                  {each.color.map((each_color, i) => (
-                    <div
-                      key={i}
-                      onClick={() => {
-                        setProductColor(i);
-                        setProductNumber(each.product_id);
-                      }}
-                      style={{
-                        width: "10px",
-                        height: "10px",
-                        backgroundColor: `${each_color}`,
-                        border: "10px",
-                        borderColor: "gray",
-                        cursor: "pointer",
-                      }}
-                    ></div>
-                  ))}
-                </div> */}
               </div>
             </div>
           )

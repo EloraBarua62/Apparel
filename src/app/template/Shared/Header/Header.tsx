@@ -15,17 +15,31 @@ import { useEffect, useState } from "react";
 const Header = () => {
   const [openCartModal, setOpenCartModal] = useState(false);
   const [availableItems, setAvailableItems] = useState([]);
+  const [openWishlistModal, setOpenWishlistModal] = useState(false);
+  const [availableWishlists, setAvailableWishlists] = useState([]);
 
   const deleteCartItem = (id: number) => {
     const updatedItems = availableItems.filter((item, index) => index !== id);
     setAvailableItems(updatedItems);
     localStorage.setItem("cartState", JSON.stringify(updatedItems));
   }
+
+  const deleteWishlistItem = (id: number) => {
+    const updatedItems = availableWishlists.filter((item, index) => index !== id);
+    setAvailableWishlists(updatedItems);
+    localStorage.setItem("wishlistState", JSON.stringify(updatedItems));
+  }
+  
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("cartState"));
     setAvailableItems(data);
   }, [openCartModal, setAvailableItems]);
-  // console.log(availableItems)
+  
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("wishlistState"));
+    setAvailableWishlists(data);
+  }, [openWishlistModal, setAvailableWishlists]);
+  
   return (
     <div className={styles.header_section}>
       {/* Resposive design of header */}
@@ -64,7 +78,12 @@ const Header = () => {
           >
             <BsCart2 style={{ fontSize: "20px" }} />
           </div>
-          <div className={styles.product_histry}>
+          <div
+            className={styles.product_histry}
+            onClick={() => {
+              setOpenWishlistModal(!openWishlistModal);
+            }}
+          >
             <GoHeart style={{ fontSize: "20px" }} />
           </div>
           <div className={styles.product_histry}>
@@ -127,13 +146,13 @@ const Header = () => {
 
       {openCartModal ? (
         <div className={styles.overlay_container}>
-          <div className={styles.cart_modal_design}>
+          <div className={styles.modal_design}>
             <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                marginBottom: '10px'
+                marginBottom: "10px",
               }}
             >
               <div className={styles.title}>Shopping Cart</div>
@@ -146,7 +165,7 @@ const Header = () => {
                 Close <IoIosClose style={{ fontSize: "24px" }} />
               </div>
             </div>
-            {availableItems.map((each, index) => (
+            {availableItems?.map((each, index) => (
               <div key={index} className={styles.item_container}>
                 <div className={styles.product_image_container}>
                   <Image
@@ -160,7 +179,56 @@ const Header = () => {
                   <div className={styles.title}>{each.name}</div>
                   <div>{each.color}</div>
                 </div>
-                <IoIosClose onClick={() => deleteCartItem(index)} style={{ fontSize: "40px", marginLeft: '10px' }} />
+                <IoIosClose
+                  onClick={() => deleteCartItem(index)}
+                  style={{ fontSize: "40px", marginLeft: "10px" }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+      {openWishlistModal ? (
+        <div className={styles.overlay_container}>
+          <div className={styles.modal_design}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "10px",
+              }}
+            >
+              <div className={styles.title}>Wish List </div>
+              <div
+                className={styles.close_button_design}
+                onClick={() => {
+                  setOpenWishlistModal(!openWishlistModal);
+                }}
+              >
+                Close <IoIosClose style={{ fontSize: "24px" }} />
+              </div>
+            </div>
+            {availableWishlists?.map((each, index) => (
+              <div key={index} className={styles.item_container}>
+                <div className={styles.product_image_container}>
+                  <Image
+                    src={each.product_image}
+                    alt=""
+                    fill
+                    className={styles.product_image_design}
+                  ></Image>
+                </div>
+                <div className={styles.product_info}>
+                  <div className={styles.title}>{each.name}</div>
+                  <div>{each.color}</div>
+                </div>
+                <IoIosClose
+                  onClick={() => deleteWishlistItem(index)}
+                  style={{ fontSize: "40px", marginLeft: "10px" }}
+                />
               </div>
             ))}
           </div>
