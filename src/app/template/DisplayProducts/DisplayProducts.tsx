@@ -93,17 +93,17 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
     }
   };
 
-  const handleLikeItem = (id: number) => {
-    console.log(id, productIdentity);
-    setCartItem(true);
+  const handleWishList = (id: number) => {
+    console.log(id, wishlistIdentity);
+    setWishlistItem(true);
     if (
-      (id === productIdentity.id && productIdentity.color === undefined) ||
-      Object.keys(productIdentity).length === 0 ||
-      id !== productIdentity.id
+      (id === wishlistIdentity.id && wishlistIdentity.color === undefined) ||
+      Object.keys(wishlistIdentity).length === 0 ||
+      id !== wishlistIdentity.id
     ) {
       for (let item of productInfo) {
         if (item.product_id === id) {
-          setProductIdentity({
+          setWishlistIdentity({
             id: id,
             name: item.product_name,
             color: item.color[0],
@@ -724,6 +724,13 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                             image: each.product_image[i],
                           });
                           setCartItem(false);
+                          setWishlistIdentity({
+                            id: each.product_id,
+                            name: each.product_name,
+                            color: each.color[i],
+                            image: each.product_image[i],
+                          });
+                          setWishlistItem(false);
                         }}
                         style={{
                           width: "10px",
@@ -762,7 +769,12 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
                     <div className={styles.icon_design}>
                       <MdOutlineRemoveRedEye style={{ fontSize: "20px" }} />
                     </div>
-                    <div className={styles.icon_design}>
+                    <div
+                      className={styles.icon_design}
+                      onClick={() => {
+                        handleWishList(each.product_id);
+                      }}
+                    >
                       <IoMdHeartEmpty style={{ fontSize: "20px" }} />
                     </div>
                     <div className={styles.icon_design}>
