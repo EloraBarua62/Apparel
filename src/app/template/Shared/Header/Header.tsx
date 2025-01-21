@@ -11,8 +11,15 @@ import { IoIosArrowDown, IoIosClose } from "react-icons/io";
 import { page_navigation } from "../../../utils/demoData";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../../../lib/hooks/hooks";
+import { categoryList } from "../../../../lib/slices/categorySlice";
 
 const Header = () => {
+  const { isLoading, successMessage, errorMessage, categoryHeading } =
+    useAppSelector((state) => state.categorySlice);
+  const dispatch = useAppDispatch();
+
+  const [openCategoryList, setOpenCategoryList] = useState(false);
   const [openCartModal, setOpenCartModal] = useState(false);
   const [availableItems, setAvailableItems] = useState([]);
   const [openWishlistModal, setOpenWishlistModal] = useState(false);
@@ -22,24 +29,30 @@ const Header = () => {
     const updatedItems = availableItems.filter((item, index) => index !== id);
     setAvailableItems(updatedItems);
     localStorage.setItem("cartState", JSON.stringify(updatedItems));
-  }
+  };
 
   const deleteWishlistItem = (id: number) => {
-    const updatedItems = availableWishlists.filter((item, index) => index !== id);
+    const updatedItems = availableWishlists.filter(
+      (item, index) => index !== id
+    );
     setAvailableWishlists(updatedItems);
     localStorage.setItem("wishlistState", JSON.stringify(updatedItems));
-  }
-  
+  };
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("cartState"));
     setAvailableItems(data);
   }, [openCartModal, setAvailableItems]);
-  
+
   useEffect(() => {
     const data = JSON.parse(localStorage.getItem("wishlistState"));
     setAvailableWishlists(data);
   }, [openWishlistModal, setAvailableWishlists]);
-  
+
+  useEffect(() => {
+    dispatch(categoryList());
+  }, [dispatch]);
+
   return (
     <div className={styles.header_section}>
       {/* Resposive design of header */}
@@ -96,7 +109,11 @@ const Header = () => {
       <div className={styles.header_bottom_section}>
         <div className={styles.responsive_container}>
           {/* Category section design */}
-          <div className={styles.category_title}>
+          <div
+            className={styles.category_title}
+            onMouseEnter={() => setOpenCategoryList(true)}
+            onMouseDownCapture={() => setOpenCategoryList(false)}
+          >
             <RxHamburgerMenu
               style={{ fontSize: "20px", marginRight: "10px" }}
             />
@@ -105,6 +122,24 @@ const Header = () => {
               className={styles.down_arrow_design}
               style={{ fontSize: "20px", marginLeft: "auto" }}
             />
+
+            {openCategoryList ? (
+              <div className={styles.toogle_list_container}>
+                {categoryHeading.map(
+                  (
+                    each: { category_name: string; total_products: number },
+                    index
+                  ) => (
+                    <div key={index} className={styles.category_info_design}>
+                      <div>{each.category_name}</div>
+                      <div>{each.total_products}</div>
+                    </div>
+                  )
+                )}
+              </div>
+            ) : (
+              ""
+            )}
           </div>
 
           {/* Routing */}

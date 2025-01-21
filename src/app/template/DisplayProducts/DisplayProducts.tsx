@@ -52,7 +52,6 @@ const DisplayProducts = ({ categoryInfo, brandInfo, productInfo }) => {
       brand_id: selectedBrand,
       query: querySearch,
     };
-    console.log(info);
 
     dispatch(allProduct(info));
   }, [

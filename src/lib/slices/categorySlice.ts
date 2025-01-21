@@ -38,11 +38,26 @@ export const listDisplay = createAsyncThunk(
   }
 );
 
+export const categoryList = createAsyncThunk(
+  "category/categoryList",
+  async (_, { rejectWithValue, fulfillWithValue }: StatusCheckingProps) => {
+    try {
+      const { data } = await api.get("/category/category-list", {
+        withCredentials: true,
+      });
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
 interface CounterSlice {
   successMessage: string;
   errorMessage: string;
   isLoading: boolean;
   categoryInfo: Array<object>;
+  categoryHeading: Array<object>;
 }
 
 const initialState: CounterSlice = {
@@ -50,6 +65,7 @@ const initialState: CounterSlice = {
   errorMessage: "",
   isLoading: false,
   categoryInfo: [],
+  categoryHeading: [],
 };
 export const categorySlice = createSlice({
   name: "category",
@@ -80,11 +96,26 @@ export const categorySlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(listDisplay.fulfilled, (state, { payload }) => {
-      state.categoryInfo = payload.category_list;
+      state.categoryInfo = payload.category_details_list;
       state.successMessage = payload.message;
       state.isLoading = false;
     });
     builder.addCase(listDisplay.rejected, (state, { payload }) => {
+      state.errorMessage = payload.error;
+      state.isLoading = false;
+    });
+
+
+    // Display category
+    builder.addCase(categoryList.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(categoryList.fulfilled, (state, { payload }) => {
+      state.categoryHeading = payload.list;
+      state.successMessage = payload.message;
+      state.isLoading = false;
+    });
+    builder.addCase(categoryList.rejected, (state, { payload }) => {
       state.errorMessage = payload.error;
       state.isLoading = false;
     });
