@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>🛍️ Apparel - Multi-Vendor Clothing Marketplace</h1>
 
-## Getting Started
+<h3>📌 Overview</h3>
+<p><b>Apparel</b> is a cross-platform, user-friendly multi-vendor marketplace autonomously manages clothing sales in different categories. Multiple vendors can showcase and sell their products, while consumers can easily browse and purchase clothes simultaneously.
+The platform includes key e-commerce functionalities like product categories, rating and reviews, wishlists, shopping carts, secure payments, and social media integration. Discounts, promotions, chatbot support, and email notifications further enhance the shopping experience.</p>
 
-First, run the development server:
+<h3>🚀 Features</h3>
+<ul>
+<li>Multi-Vendor Support: Vendors can register, list products, and manage sales.</li>
+<li>Product Categories: Organized clothing collections for easy navigation.</li>
+<li>Customer Features: Wishlist, shopping cart, and product rating/reviews.</li>
+<li>Secure Payments: Integrated payment gateway for seamless transactions.</li>
+<li>Social Media Integration: Share products on various social platforms.</li>
+<li>Discounts & Promotions: Admin-configurable offers and deals.</li>
+<li>Chatbot & Email Support: Enhances customer service and engagement.</li>
+</ul>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<h3>🛠 Tech Stack</h3>
+<ul>
+<li>Frontend: TypeScript, Next.js, Redux.js</li>
+<li>Backend: Node.js, Express.js</li>
+<li>Database: MySQL</li>
+<li>Others: Socket.io, JWT (JSON Web Token)</li>
+</ul>
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<h3>📸 Video</h3>
+<p>This is the video of <a href='https://www.awesomescreenshot.com/video/35738427?key=76faa1cfd8d83125a1c6428c6d024dde'>Apparel</a>. Check the video to get insights.</p>
